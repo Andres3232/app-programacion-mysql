@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+var express_1 = require("express");
+var usuarioController_1 = require("../controllers/usuarioController");
+var validar_jwt_1 = require("../middlewares/validar-jwt");
+var validar_roles_1 = require("../middlewares/validar-roles");
+var router = express_1.Router();
+exports.router = router;
+var usuarioController = new usuarioController_1.UsuarioController();
+router.get("/add", validar_jwt_1.validarJWT, function (request, response) {
+    response.render("add");
+});
+router.get("/lista", usuarioController.listUsers);
+router.post("/add-user", validar_jwt_1.validarJWT, usuarioController.createUser);
+router.get("/search", usuarioController.searchUser);
+router.get("/edit", validar_jwt_1.validarJWT, validar_roles_1.esAdminRole, usuarioController.getUserData);
+router.post("/edit-user", validar_jwt_1.validarJWT, validar_roles_1.esAdminRole, usuarioController.updateUser);
+router.post("/delete-user", validar_jwt_1.validarJWT, validar_roles_1.esAdminRole, usuarioController.deleteUser);
+router.delete("/delete-user/:id", validar_jwt_1.validarJWT, validar_roles_1.esAdminRole, usuarioController.deleteUser);

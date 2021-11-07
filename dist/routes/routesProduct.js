@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.routerProduct = void 0;
+var express_1 = require("express");
+var productoControllers_1 = require("../controllers/productoControllers");
+var validar_jwt_1 = require("../middlewares/validar-jwt");
+var validar_roles_1 = require("../middlewares/validar-roles");
+var routerProduct = express_1.Router();
+exports.routerProduct = routerProduct;
+var productoController = new productoControllers_1.ProductController();
+routerProduct.get("/add-producto", validar_jwt_1.validarJWT, validar_roles_1.esAdminRole, productoController.searchCategory);
+routerProduct.get("/lista-producto", productoController.listProducts);
+routerProduct.post("/add-producto", validar_jwt_1.validarJWT, validar_roles_1.esAdminRole, productoController.createProduct);
+routerProduct.get("/edit-producto", validar_jwt_1.validarJWT, validar_roles_1.esAdminRole, productoController.getProductData);
+routerProduct.post("/edit-product", validar_jwt_1.validarJWT, validar_roles_1.esAdminRole, productoController.updateProduct);
+routerProduct.post("/delete-producto", validar_jwt_1.validarJWT, validar_roles_1.esAdminRole, productoController.deleteProduct);
