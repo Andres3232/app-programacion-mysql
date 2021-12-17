@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-require("reflect-metadata");
 require("express-async-errors");
 var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));

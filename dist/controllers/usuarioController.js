@@ -48,12 +48,21 @@ var UsuarioController = /** @class */ (function () {
     //metodo para listar usuarios
     UsuarioController.prototype.listUsers = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var users;
+            var users, options;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, usuarioService_1.userService.list()];
                     case 1:
                         users = _a.sent();
+                        options = {
+                            year: 'numeric', month: 'numeric', day: 'numeric',
+                            /* hour: 'numeric', minute: 'numeric', second: 'numeric', */
+                            hour12: true,
+                        };
+                        users.map(function (user) {
+                            //@ts-ignore
+                            user.fecha = new Intl.DateTimeFormat(options).format(user.fecha);
+                        });
                         return [2 /*return*/, response.render("index", {
                                 users: users
                             })];
@@ -64,11 +73,11 @@ var UsuarioController = /** @class */ (function () {
     //metodo para agregar usuario
     UsuarioController.prototype.createUser = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, username, email, Telefono, Ciudad, Estado, Rol, Password, salt, err_1;
+            var _a, username, email, Telefono, Ciudad, Estado, Rol, Password, fecha, salt, err_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = request.body, username = _a.username, email = _a.email, Telefono = _a.Telefono, Ciudad = _a.Ciudad, Estado = _a.Estado, Rol = _a.Rol, Password = _a.Password;
+                        _a = request.body, username = _a.username, email = _a.email, Telefono = _a.Telefono, Ciudad = _a.Ciudad, Estado = _a.Estado, Rol = _a.Rol, Password = _a.Password, fecha = _a.fecha;
                         Telefono = parseInt(Telefono);
                         salt = bcryptjs_1.default.genSaltSync();
                         Password = bcryptjs_1.default.hashSync(Password, salt);
@@ -82,7 +91,8 @@ var UsuarioController = /** @class */ (function () {
                                 Ciudad: Ciudad,
                                 Estado: Estado,
                                 Rol: Rol,
-                                Password: Password
+                                Password: Password,
+                                fecha: fecha
                             }).then(function () {
                                 response.render("message", {
                                     message: "Usuario creado con exito"
@@ -136,7 +146,7 @@ var UsuarioController = /** @class */ (function () {
     //traer la data del usuario
     UsuarioController.prototype.getUserData = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, user;
+            var id, user, date, options;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -145,6 +155,15 @@ var UsuarioController = /** @class */ (function () {
                         return [4 /*yield*/, usuarioService_1.userService.getData(id)];
                     case 1:
                         user = _a.sent();
+                        date = new Date();
+                        options = {
+                            year: 'numeric', month: 'numeric', day: 'numeric',
+                            /* hour: 'numeric', minute: 'numeric', second: 'numeric', */
+                            hour12: true,
+                        };
+                        //@ts-ignore
+                        user.fecha = new Intl.DateTimeFormat(options).format(date);
+                        console.log(user.fecha);
                         return [2 /*return*/, response.render("edit", {
                                 user: user
                             })];
@@ -155,15 +174,15 @@ var UsuarioController = /** @class */ (function () {
     //editar el usuario
     UsuarioController.prototype.updateUser = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, id, username, email, Telefono, Ciudad, Estado, Rol, err_3;
+            var _a, id, username, email, Telefono, Ciudad, Estado, Rol, fecha, err_3;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = request.body, id = _a.id, username = _a.username, email = _a.email, Telefono = _a.Telefono, Ciudad = _a.Ciudad, Estado = _a.Estado, Rol = _a.Rol;
+                        _a = request.body, id = _a.id, username = _a.username, email = _a.email, Telefono = _a.Telefono, Ciudad = _a.Ciudad, Estado = _a.Estado, Rol = _a.Rol, fecha = _a.fecha;
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, usuarioService_1.userService.update({ id: id, username: username, email: email, Telefono: Telefono, Ciudad: Ciudad, Estado: Estado, Rol: Rol }).then(function () {
+                        return [4 /*yield*/, usuarioService_1.userService.update({ id: id, username: username, email: email, Telefono: Telefono, Ciudad: Ciudad, Estado: Estado, Rol: Rol, fecha: fecha }).then(function () {
                                 response.render("message", {
                                     message: "Usuario actualizado"
                                 });

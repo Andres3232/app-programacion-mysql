@@ -48,7 +48,7 @@ var usuarioService_1 = require("../services/usuarioService");
 var node_localstorage_1 = require("node-localstorage");
 var localStorage = new node_localstorage_1.LocalStorage('./scratch');
 var login = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, username, password, usersRepository, usuario, passwordString, validPassword, token, users, error_1;
+    var _a, username, password, usersRepository, usuario, passwordString, validPassword, token, users, options_1, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -77,6 +77,15 @@ var login = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
                 return [4 /*yield*/, usuarioService_1.userService.list()];
             case 4:
                 users = _b.sent();
+                options_1 = {
+                    year: 'numeric', month: 'numeric', day: 'numeric',
+                    hour: 'numeric', minute: 'numeric', second: 'numeric',
+                    hour12: true,
+                };
+                users.map(function (user) {
+                    //@ts-ignore
+                    user.fecha = new Intl.DateTimeFormat(options_1).format(user.fecha);
+                });
                 return [2 /*return*/, res.render("index", {
                         usuario: usuario,
                         token: token,
@@ -95,11 +104,11 @@ var login = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
 }); };
 exports.login = login;
 var signup = function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, username, email, Telefono, Ciudad, Estado, Password, Rol, salt, err_1;
+    var _a, username, email, Telefono, Ciudad, Estado, Password, fecha, Rol, salt, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = request.body, username = _a.username, email = _a.email, Telefono = _a.Telefono, Ciudad = _a.Ciudad, Estado = _a.Estado, Password = _a.Password;
+                _a = request.body, username = _a.username, email = _a.email, Telefono = _a.Telefono, Ciudad = _a.Ciudad, Estado = _a.Estado, Password = _a.Password, fecha = _a.fecha;
                 Telefono = parseInt(Telefono);
                 Rol = "User";
                 salt = bcryptjs_1.default.genSaltSync();
@@ -114,7 +123,8 @@ var signup = function (request, response) { return __awaiter(void 0, void 0, voi
                         Ciudad: Ciudad,
                         Estado: Estado,
                         Rol: Rol,
-                        Password: Password
+                        Password: Password,
+                        fecha: fecha
                     }).then(function () {
                         response.render("messageSignup", {
                             message: "Usuario creado con exito"

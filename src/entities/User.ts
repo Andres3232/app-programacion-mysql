@@ -37,6 +37,11 @@ class User {
   @Column()
   @IsString()
   @IsNotEmpty()
+  fecha!: Date;
+
+  @Column()
+  @IsString()
+  @IsNotEmpty()
   Rol: string;
 
   @Column()

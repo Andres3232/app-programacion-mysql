@@ -57,6 +57,12 @@ var User = /** @class */ (function () {
         typeorm_1.Column(),
         class_validator_1.IsString(),
         class_validator_1.IsNotEmpty(),
+        __metadata("design:type", Date)
+    ], User.prototype, "fecha", void 0);
+    __decorate([
+        typeorm_1.Column(),
+        class_validator_1.IsString(),
+        class_validator_1.IsNotEmpty(),
         __metadata("design:type", String)
     ], User.prototype, "Rol", void 0);
     __decorate([

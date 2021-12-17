@@ -62,7 +62,7 @@ var UsuarioService = /** @class */ (function () {
     };
     //crear usuarios
     UsuarioService.prototype.create = function (_a) {
-        var username = _a.username, email = _a.email, Telefono = _a.Telefono, Ciudad = _a.Ciudad, Estado = _a.Estado, Rol = _a.Rol, Password = _a.Password;
+        var username = _a.username, email = _a.email, Telefono = _a.Telefono, Ciudad = _a.Ciudad, Estado = _a.Estado, Rol = _a.Rol, Password = _a.Password, fecha = _a.fecha;
         return __awaiter(this, void 0, void 0, function () {
             var usersRepository, usernameAlreadyExists, emailAlreadyExists, user, errors;
             return __generator(this, function (_b) {
@@ -81,7 +81,7 @@ var UsuarioService = /** @class */ (function () {
                         if (emailAlreadyExists) {
                             throw new Error("Email ya esta registrado");
                         }
-                        user = usersRepository.create({ username: username, email: email, Telefono: Telefono, Ciudad: Ciudad, Estado: Estado, Rol: Rol, Password: Password });
+                        user = usersRepository.create({ username: username, email: email, Telefono: Telefono, Ciudad: Ciudad, Estado: Estado, Rol: Rol, Password: Password, fecha: fecha });
                         return [4 /*yield*/, class_validator_1.validate(user)];
                     case 3:
                         errors = _b.sent();
@@ -140,7 +140,7 @@ var UsuarioService = /** @class */ (function () {
         });
     };
     UsuarioService.prototype.update = function (_a) {
-        var id = _a.id, username = _a.username, email = _a.email, Telefono = _a.Telefono, Ciudad = _a.Ciudad, Estado = _a.Estado, Rol = _a.Rol;
+        var id = _a.id, username = _a.username, email = _a.email, Telefono = _a.Telefono, Ciudad = _a.Ciudad, Estado = _a.Estado, Rol = _a.Rol, fecha = _a.fecha;
         return __awaiter(this, void 0, void 0, function () {
             var usersRepository, user;
             return __generator(this, function (_b) {
@@ -150,7 +150,7 @@ var UsuarioService = /** @class */ (function () {
                         return [4 /*yield*/, usersRepository
                                 .createQueryBuilder()
                                 .update(User_1.User)
-                                .set({ username: username, email: email, Telefono: Telefono, Ciudad: Ciudad, Estado: Estado, Rol: Rol })
+                                .set({ username: username, email: email, Telefono: Telefono, Ciudad: Ciudad, Estado: Estado, Rol: Rol, fecha: fecha })
                                 .where("id = :id", { id: id })
                                 .execute()];
                     case 1:

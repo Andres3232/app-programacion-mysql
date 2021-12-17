@@ -2,7 +2,6 @@ Integrantes
 Andres, Murgo
 Emanuel, Cortinez
 Felipe, Banco
-Luciano, Pardo
 
 
 

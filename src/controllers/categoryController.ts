@@ -68,10 +68,10 @@ class CategoryController {
 
       //controlar la edición de la categoria
       async updateCategory(request: Request, response: Response) {
-        const { name } = request.body;
+        const { name, id } = request.body;
     
         try {
-          await categoryService.updateCategory({name}).then(() => {
+          await categoryService.updateCategory({name, id}).then(() => {
             response.render("messageCategoria", {
               message: "Categoría Actualizada"
             });``

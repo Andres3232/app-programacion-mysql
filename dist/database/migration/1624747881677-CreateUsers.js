@@ -83,6 +83,10 @@ var CreateUsers1624747881677 = /** @class */ (function () {
                                     type: 'varchar'
                                 },
                                 {
+                                    name: 'fecha',
+                                    type: "date"
+                                },
+                                {
                                     name: "created_at",
                                     type: "timestamp",
                                     default: "now()"

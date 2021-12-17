@@ -142,25 +142,25 @@ var CategoryController = /** @class */ (function () {
     //controlar la edición de la categoria
     CategoryController.prototype.updateCategory = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var name, err_3;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, name, id, err_3;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        name = request.body.name;
-                        _a.label = 1;
+                        _a = request.body, name = _a.name, id = _a.id;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, categoryService_1.categoryService.updateCategory({ name: name }).then(function () {
+                        _b.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, categoryService_1.categoryService.updateCategory({ name: name, id: id }).then(function () {
                                 response.render("messageCategoria", {
                                     message: "Categoría Actualizada"
                                 });
                                 "";
                             })];
                     case 2:
-                        _a.sent();
+                        _b.sent();
                         return [3 /*break*/, 4];
                     case 3:
-                        err_3 = _a.sent();
+                        err_3 = _b.sent();
                         response.render("messageCategoria", {
                             message: "Error al actualizar la categor\u00EDa: " + err_3.message
                         });
